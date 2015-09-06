@@ -28,7 +28,6 @@
     "email": "pip@pipobscure.com"
   },
   "license": "MIT",
-  "gypfile": true,
   "bugs": {
     "url": "https://github.com/strongloop/fsevents/issues"
   },
