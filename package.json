@@ -6,9 +6,6 @@
   "dependencies": {
     "nan": "^1.8.0"
   },
-  "os": [
-    "darwin"
-  ],
   "engines": {
     "node": ">=0.8.0"
   },
