@@ -49,15 +49,7 @@ LDFLAGS.target ?= $(LDFLAGS)
 AR.target ?= $(AR)
 
 # C++ apps need to be linked with g++.
-#
-# Note: flock is used to seralize linking. Linking is a memory-intensive
-# process so running parallel links can often lead to thrashing.  To disable
-# the serialization, override LINK via an envrionment variable as follows:
-#
-#   export LINK=g++
-#
-# This will allow make to invoke N linker processes as specified in -jN.
-LINK ?= ./gyp-mac-tool flock $(builddir)/linker.lock $(CXX.target)
+LINK ?= $(CXX.target)
 
 # TODO(evan): move all cross-compilation logic to gyp-time so we don't need
 # to replicate this environment fallback in make as well.
@@ -339,8 +331,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/build/config.gypi -I/usr/local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1" "-Dmodule_root_dir=/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents" binding.gyp
-Makefile: $(srcdir)/atom-shell-gyp/.node-gyp/0.27.1/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../../../../usr/local/lib/node_modules/npm/node_modules/node-gyp/addon.gypi
+cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/Users/bpasero/Desktop/chokidar/node_modules/chokidar/node_modules/fsevents/build/config.gypi -I/usr/local/lib/node_modules/node-gyp/addon.gypi -I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/bpasero/.electron-gyp/.node-gyp/0.27.3" "-Dnode_gyp_dir=/usr/local/lib/node_modules/node-gyp" "-Dmodule_root_dir=/Users/bpasero/Desktop/chokidar/node_modules/chokidar/node_modules/fsevents" binding.gyp
+Makefile: $(srcdir)/../../../../../../.electron-gyp/.node-gyp/0.27.3/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../../../../usr/local/lib/node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

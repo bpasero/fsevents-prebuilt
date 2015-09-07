@@ -3,6 +3,7 @@
 TOOLSET := target
 TARGET := fse
 DEFS_Debug := \
+	'-DNODE_GYP_MODULE_NAME=fse' \
 	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
@@ -40,12 +41,13 @@ CFLAGS_OBJC_Debug :=
 CFLAGS_OBJCC_Debug :=
 
 INCS_Debug := \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/src \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/deps/uv/include \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/deps/v8/include \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/src \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/deps/uv/include \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 DEFS_Release := \
+	'-DNODE_GYP_MODULE_NAME=fse' \
 	'-D_DARWIN_USE_64_BIT_INODE=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
@@ -81,9 +83,9 @@ CFLAGS_OBJC_Release :=
 CFLAGS_OBJCC_Release :=
 
 INCS_Release := \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/src \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/deps/uv/include \
-	-I/Users/bpasero/Development/monaco/node_modules/chokidar/node_modules/fsevents/atom-shell-gyp/.node-gyp/0.27.1/deps/v8/include \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/src \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/deps/uv/include \
+	-I/Users/bpasero/.electron-gyp/.node-gyp/0.27.3/deps/v8/include \
 	-I$(srcdir)/node_modules/nan
 
 OBJS := \
@@ -117,6 +119,7 @@ $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.cc FORCE_DO_CMD
 ### Rules for final target.
 LDFLAGS_Debug := \
 	-framework CoreFoundation -framework CoreServices \
+	-undefined dynamic_lookup \
 	-Wl,-search_paths_first \
 	-mmacosx-version-min=10.5 \
 	-arch x86_64 \
@@ -124,10 +127,12 @@ LDFLAGS_Debug := \
 
 LIBTOOLFLAGS_Debug := \
 	-framework CoreFoundation -framework CoreServices \
+	-undefined dynamic_lookup \
 	-Wl,-search_paths_first
 
 LDFLAGS_Release := \
 	-framework CoreFoundation -framework CoreServices \
+	-undefined dynamic_lookup \
 	-Wl,-search_paths_first \
 	-mmacosx-version-min=10.5 \
 	-arch x86_64 \
@@ -135,10 +140,10 @@ LDFLAGS_Release := \
 
 LIBTOOLFLAGS_Release := \
 	-framework CoreFoundation -framework CoreServices \
+	-undefined dynamic_lookup \
 	-Wl,-search_paths_first
 
-LIBS := \
-	-undefined dynamic_lookup
+LIBS :=
 
 $(builddir)/fse.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(builddir)/fse.node: LIBS := $(LIBS)
